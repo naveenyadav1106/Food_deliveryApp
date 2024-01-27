@@ -2,22 +2,25 @@ import express from 'express';
 import cors from 'cors';
 import connectMongo from './db.js';
 import router from './Routes/CreateUser.js';
-import displayDataRouter from './Routes/DisplayData.js'
+import displayDataRouter from './Routes/DisplayData.js';
 import OrderDataRouter from './Routes/OrderData.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 const startServer = async () => {
     try {
         await connectMongo();
         console.log("MongoDB connected!");
 
-        // Enable CORS globally
+
         app.use(cors({
-            origin: 'http://localhost:3000', // Allow requests from this origin
+            origin: 'http://localhost:3000',
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            credentials: true, // Allow cookies to be sent with the requests
+            credentials: true,
         }));
 
         app.get('/', (req, res) => {

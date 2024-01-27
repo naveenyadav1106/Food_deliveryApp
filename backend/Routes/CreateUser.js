@@ -7,7 +7,7 @@ import UserModel from '../models/User.js';
 
 const router = Router();
 
-const jwtSecret = "MynameisNaveenYadavMynameisNaveenYadav"
+const jwtSecret = process.env.JWT_SECRET;
 
 router.post("/createUser",
     [
