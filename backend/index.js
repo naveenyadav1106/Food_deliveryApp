@@ -4,12 +4,9 @@ import connectMongo from './db.js';
 import router from './Routes/CreateUser.js';
 import displayDataRouter from './Routes/DisplayData.js';
 import OrderDataRouter from './Routes/OrderData.js';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 const startServer = async () => {
     try {
@@ -18,7 +15,7 @@ const startServer = async () => {
 
 
         app.use(cors({
-            origin: '*',
+            origin: 'http://localhost:5000',
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
         }));

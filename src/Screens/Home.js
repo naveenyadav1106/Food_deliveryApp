@@ -3,11 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import Card from '../Components/Card';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL
 
 export default function Home() {
 
@@ -18,7 +13,7 @@ export default function Home() {
 
     const load_data = async () => {
         try {
-            let response = await fetch(`${backendBaseUrl}/api/foodData`, {
+            let response = await fetch(`http://localhost:5000/api/foodData`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

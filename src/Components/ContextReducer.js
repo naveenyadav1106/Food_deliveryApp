@@ -22,7 +22,6 @@ const reducer = (state, action) => {
         case 'UPDATE':
             return state.map(item => {
                 if (item.id === action.id) {
-                    // Assuming you want to update the quantity and price
                     return {
                         ...item,
                         qty: parseInt(action.qty) + parseInt(item.qty),

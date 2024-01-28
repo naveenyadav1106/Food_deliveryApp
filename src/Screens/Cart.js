@@ -1,11 +1,6 @@
 import React from 'react';
 import { useCart, useDispatchCart } from '../Components/ContextReducer';
 import trashSvg from '../trash.svg';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
 
 export default function Cart() {
     let data = useCart();
@@ -30,7 +25,7 @@ export default function Cart() {
 
     const handleCheckOut = async () => {
         let userEmail = localStorage.getItem("userEmail")
-        let response = await fetch(`${backendBaseUrl}/api/orderData`, {
+        let response = await fetch(`http://localhost:5000/api/orderData`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
