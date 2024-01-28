@@ -6,6 +6,7 @@ const displayDataRouter = Router();
 displayDataRouter.post('/foodData', (req, res) => {
     try {
         // console.log(global.food_items)
+        console.log('Retrieved data:', [global.food_items, global.foodcategory]);
         res.send([global.food_items, global.foodcategory])
     } catch (error) {
         console.error(error.message);

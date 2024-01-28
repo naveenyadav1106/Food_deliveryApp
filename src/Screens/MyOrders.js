@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../Components/Footer'
 import Navbar from '../Components/Navbar'
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 export default function MyOrder() {
 
@@ -8,7 +13,7 @@ export default function MyOrder() {
 
     const fetchMyOrder = async () => {
         console.log(localStorage.getItem('userEmail'))
-        await fetch("http://localhost:5000/api/MyOrderData", {
+        await fetch(`${backendBaseUrl}/api/MyOrderData`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -18,7 +23,7 @@ export default function MyOrder() {
             })
         }).then(async (res) => {
             let response = await res.json()
-            await setorderData(response)
+            setorderData(response)
         })
     }
 

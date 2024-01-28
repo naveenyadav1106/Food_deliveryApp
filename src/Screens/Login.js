@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+// import dotenv from 'dotenv';
+
+// dotenv.config();
 
 export default function Login() {
 
@@ -11,7 +14,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(JSON.stringify({ email: Credentials.email, password: Credentials.password }))
-        const response = await fetch("http://localhost:5000/api/loginUser", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/loginUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
