@@ -8,7 +8,7 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`http://localhost:5000/api/createUser`, {
+        const response = await fetch(`https://backend-gofood.onrender.com/api/createUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

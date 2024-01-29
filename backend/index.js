@@ -15,7 +15,7 @@ const startServer = async () => {
 
 
         app.use(cors({
-            origin: 'http://localhost:5000',
+            origin: 'https://backend-gofood.onrender.com',
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
         }));

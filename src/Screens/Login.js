@@ -11,7 +11,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(JSON.stringify({ email: Credentials.email, password: Credentials.password }))
-        const response = await fetch(`http://localhost:5000/api/loginUser`, {
+        const response = await fetch(`https://backend-gofood.onrender.com/api/loginUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
