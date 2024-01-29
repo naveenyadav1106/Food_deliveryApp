@@ -15,7 +15,7 @@ const startServer = async () => {
 
 
         app.use(cors({
-            origin: 'https://backend-gofood.onrender.com',
+            origin: 'https://gofood-naveen-yadav.netlify.app',
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
         }));
