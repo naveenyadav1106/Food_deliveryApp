@@ -15,7 +15,7 @@ const startServer = async () => {
 
 
         app.use(cors({
-            origin: ['http://localhost:3000', 'https://go-food-frontend.netlify.app/'],
+            origin: ['https://go-food-frontend.netlify.app', 'http://localhost:3000'],
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
         }));
@@ -26,9 +26,9 @@ const startServer = async () => {
 
         app.use(express.json());
 
-        app.use('/api/', router);
-
         app.use('/api/', displayDataRouter);
+
+        app.use('/api/', router);
 
         app.use('/api/', OrderDataRouter);
 
