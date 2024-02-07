@@ -5,13 +5,13 @@ const displayDataRouter = Router();
 
 displayDataRouter.post('/foodData', (req, res) => {
     try {
-        // console.log(global.food_items)
         console.log('Retrieved data:', [global.food_items, global.foodcategory]);
-        res.send([global.food_items, global.foodcategory])
+        res.status(200).json({ success: true, data: [global.food_items, global.foodcategory] });
     } catch (error) {
-        console.error(error.message);
-        res.send("Server Error")
+        console.error('Error retrieving data:', error.message);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });
+
 
 export default displayDataRouter; 

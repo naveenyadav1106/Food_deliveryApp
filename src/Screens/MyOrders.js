@@ -34,7 +34,6 @@ export default function MyOrder() {
 
             <div className='container'>
                 <div className='row'>
-
                     {orderData !== null ? Array(orderData).map(data => {
                         return (
                             data.orderData ?
@@ -62,7 +61,6 @@ export default function MyOrder() {
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     }
                                                 </div>

@@ -7,7 +7,17 @@ import UserModel from '../models/User.js';
 
 const router = Router();
 
-const jwtSecret = "MynameisNaveenYadavMynameisNaveenYadav"
+const jwtSecret = "MynameisNaveenYadavMynameisNaveenYadav";
+
+// Function to set a cookie
+const setCookie = (res, token) => {
+    res.cookie('yourCookieName', token, {
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+        maxAge: 60 * 60,
+    });
+};
 
 router.post("/createUser",
     [
@@ -22,7 +32,6 @@ router.post("/createUser",
         if (result.isEmpty()) {
             try {
                 const salt = await bcrypt.genSalt(10);
-
                 const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
                 const newUser = await UserModel.create({
@@ -32,20 +41,20 @@ router.post("/createUser",
                     location: req.body.location,
                 });
 
+                // Generate a token and set a cookie
+                const data = { user: { id: newUser.id } };
+                const authToken = jwt.sign(data, jwtSecret);
+                setCookie(res, authToken);
+
                 res.status(201).json({ success: true, message: "User created successfully" });
-
             } catch (error) {
-
                 console.error('Error creating user:', error);
-
                 res.status(500).json({ success: false, message: "Internal server error" });
             }
         } else {
-
             res.status(400).json({ success: false, errors: result.array() });
         }
     });
-
 
 router.post("/loginUser",
     [
@@ -53,10 +62,9 @@ router.post("/loginUser",
         body('password', 'Incorrect Password').isLength({ min: 5 }),
     ],
     async (req, res) => {
-
         const result = validationResult(req);
-        if (!result.isEmpty()) {
 
+        if (!result.isEmpty()) {
             return res.status(400).json({ success: false, errors: result.array() });
         }
 
@@ -66,30 +74,26 @@ router.post("/loginUser",
             const userData = await UserModel.findOne({ email });
 
             if (!userData) {
-
                 return res.status(400).json({ success: false, message: "Invalid credentials" });
             }
 
-            const password_Compare = await bcrypt.compare(req.body.password, userData.password)
-            if (!password_Compare) {
+            const passwordCompare = await bcrypt.compare(req.body.password, userData.password);
 
+            if (!passwordCompare) {
                 return res.status(400).json({ success: false, message: "Invalid credentials" });
             }
 
-            const data = {
-                user: {
-                    id: userData.id,
-                }
-            }
+            // Generate a token and set a cookie
+            const data = { user: { id: userData.id } };
+            const authToken = jwt.sign(data, jwtSecret);
+            setCookie(res, authToken);
 
-            const authToken = jwt.sign(data, jwtSecret)
-            return res.json({ success: true, message: "Login successful", authToken: authToken });
-
+            res.json({ success: true, message: "Login successful", authToken: authToken });
         } catch (error) {
             console.error(error);
-
             res.status(500).json({ success: false, message: "Internal server error" });
         }
     });
+
 
 export default router;

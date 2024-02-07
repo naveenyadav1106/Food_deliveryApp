@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import cors from 'cors';
 import connectMongo from './db.js';
 import router from './Routes/CreateUser.js';
@@ -13,12 +14,10 @@ const startServer = async () => {
         await connectMongo();
         console.log("MongoDB connected!");
 
+        // Helmet middleware for Cross-Origin Resource Policy header    
+        app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 
-        app.use(cors({
-            origin: ['https://go-food-frontend.netlify.app', 'http://localhost:3000'],
-            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            credentials: true,
-        }));
+        app.use(cors());
 
         app.get('/', (req, res) => {
             res.send('Hello World!-------');
